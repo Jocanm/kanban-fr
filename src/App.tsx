@@ -13,7 +13,6 @@ const MainContainer = styled(Box)(({ theme }) => ({
       ? theme.palette.customGrey.darker
       : theme.palette.customGrey.light,
   flexGrow: 1,
-  padding: theme.spacing(4),
   borderTop: `1px solid ${
     theme.palette.mode === "dark" ? "#fff2" : theme.palette.lines.light
   }`,
@@ -26,9 +25,14 @@ const App = () => (
         <Box display={{ xs: "none", md: "block" }}>
           <Sidebar />
         </Box>
-        <Box width="100%" display="flex" flexDirection="column">
+        <Box
+          width="100%"
+          display="flex"
+          flexDirection="column"
+          overflow="hidden"
+        >
           <Navbar />
-          <MainContainer component="main">
+          <MainContainer component="main" overflow="auto">
             <ActiveBoardPage />
           </MainContainer>
         </Box>

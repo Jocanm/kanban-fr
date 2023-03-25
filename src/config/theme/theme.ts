@@ -107,6 +107,30 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
           }),
         },
       },
+      MuiPaper: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor:
+              mode === "dark" ? theme.palette.customGrey.darker : "#fff",
+            boxShadow: "0px .25rem .375rem rgba(54, 78, 126, 0.101545)",
+            borderRadius: ".5rem",
+          }),
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: ({ theme }) => ({
+            backgroundColor:
+              mode === "dark" ? theme.palette.customGrey.dark : "#fff",
+            backgroundImage: "none",
+            boxShadow: "0px .25rem .375rem rgba(54, 78, 126, 0.101545)",
+            borderRadius: theme.spacing(2),
+          }),
+          container: {
+            backgroundColor: "#0000005",
+          },
+        },
+      },
     },
     typography: {
       fontFamily: ["Plus Jakarta Sans", "sans-serif"].join(","),

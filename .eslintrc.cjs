@@ -36,5 +36,6 @@ module.exports = {
     "react/jsx-no-useless-fragment": 1,
     "prettier/prettier": ["error", { endOfLine: "auto" }],
     "no-param-reassign": 0,
+    "react/destructuring-assignment": 0,
   },
 };

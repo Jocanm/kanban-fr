@@ -1,7 +1,6 @@
 import { Dialog, SxProps, Theme, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect } from "react";
 import { Sidebar } from "../sidebar/Sidebar";
-import { ModalContainer } from "./OptionsModal.styles";
 
 interface Props {
   isOpen: boolean;
@@ -30,9 +29,7 @@ export const OptionsModal = ({ isOpen, onClose }: Props) => {
       open={isOpen && downMd}
       PaperProps={{ sx: paperSxProps }}
     >
-      <ModalContainer>
-        <Sidebar />
-      </ModalContainer>
+      <Sidebar />
     </Dialog>
   );
 };

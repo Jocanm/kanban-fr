@@ -15,6 +15,7 @@ export interface Task {
   description: string;
   status: string;
   subtasks: Subtask[];
+  id: string;
 }
 
 export interface Subtask {

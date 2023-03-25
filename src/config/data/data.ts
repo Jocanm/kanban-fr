@@ -11,6 +11,7 @@ export const data: Board[] = [
         id: nanoid(),
         tasks: [
           {
+            id: nanoid(),
             title: "Build UI for onboarding flow",
             description: "",
             status: "Todo",
@@ -30,6 +31,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Build UI for search",
             description: "",
             status: "Todo",
@@ -41,6 +44,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Build settings UI",
             description: "",
             status: "Todo",
@@ -56,6 +61,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "QA and test all major user journeys",
             description:
               "Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.",
@@ -78,6 +85,8 @@ export const data: Board[] = [
         id: nanoid(),
         tasks: [
           {
+            id: nanoid(),
+
             title: "Design settings and search pages",
             description: "",
             status: "Doing",
@@ -97,6 +106,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Add account management endpoints",
             description: "",
             status: "Doing",
@@ -116,6 +127,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Design onboarding flow",
             description: "",
             status: "Doing",
@@ -136,6 +149,8 @@ export const data: Board[] = [
           },
           {
             title: "Add search enpoints",
+
+            id: nanoid(),
             description: "",
             status: "Doing",
             subtasks: [
@@ -151,6 +166,8 @@ export const data: Board[] = [
           },
           {
             title: "Add authentication endpoints",
+
+            id: nanoid(),
             description: "",
             status: "Doing",
             subtasks: [
@@ -167,6 +184,7 @@ export const data: Board[] = [
           {
             title:
               "Research pricing points of various competitors and trial different business models",
+            id: nanoid(),
             description:
               "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
             status: "Doing",
@@ -193,6 +211,7 @@ export const data: Board[] = [
         id: nanoid(),
         tasks: [
           {
+            id: nanoid(),
             title: "Conduct 5 wireframe tests",
             description:
               "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
@@ -205,6 +224,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Create wireframe prototype",
             description:
               "Create a greyscale clickable wireframe prototype to test our asssumptions so far.",
@@ -217,6 +238,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Review results of usability tests and iterate",
             description:
               "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
@@ -240,6 +263,8 @@ export const data: Board[] = [
           {
             title:
               "Create paper prototypes and conduct 10 usability tests with potential customers",
+
+            id: nanoid(),
             description: "",
             status: "Done",
             subtasks: [
@@ -254,6 +279,8 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
             title: "Market discovery",
             description:
               "We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.",
@@ -267,6 +294,8 @@ export const data: Board[] = [
           },
           {
             title: "Competitor analysis",
+
+            id: nanoid(),
             description: "",
             status: "Done",
             subtasks: [
@@ -281,6 +310,131 @@ export const data: Board[] = [
             ],
           },
           {
+            id: nanoid(),
+
+            title: "Research the market",
+            description:
+              "We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.",
+            status: "Done",
+            subtasks: [
+              {
+                title: "Write up research analysis",
+                isCompleted: true,
+              },
+              {
+                title: "Calculate TAM",
+                isCompleted: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Forget",
+        id: nanoid(),
+        tasks: [
+          {
+            id: nanoid(),
+            title: "Conduct 5 wireframe tests",
+            description:
+              "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
+            status: "Done",
+            subtasks: [
+              {
+                title: "Complete 5 wireframe prototype tests",
+                isCompleted: true,
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+
+            title: "Create wireframe prototype",
+            description:
+              "Create a greyscale clickable wireframe prototype to test our asssumptions so far.",
+            status: "Done",
+            subtasks: [
+              {
+                title: "Create clickable wireframe prototype in Balsamiq",
+                isCompleted: true,
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+
+            title: "Review results of usability tests and iterate",
+            description:
+              "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
+            status: "Done",
+            subtasks: [
+              {
+                title:
+                  "Meet to review notes from previous tests and plan changes",
+                isCompleted: true,
+              },
+              {
+                title: "Make changes to paper prototypes",
+                isCompleted: true,
+              },
+              {
+                title: "Conduct 5 usability tests",
+                isCompleted: true,
+              },
+            ],
+          },
+          {
+            title:
+              "Create paper prototypes and conduct 10 usability tests with potential customers",
+
+            id: nanoid(),
+            description: "",
+            status: "Done",
+            subtasks: [
+              {
+                title: "Create paper prototypes for version one",
+                isCompleted: true,
+              },
+              {
+                title: "Complete 10 usability tests",
+                isCompleted: true,
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+
+            title: "Market discovery",
+            description:
+              "We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.",
+            status: "Done",
+            subtasks: [
+              {
+                title: "Interview 10 prospective customers",
+                isCompleted: true,
+              },
+            ],
+          },
+          {
+            title: "Competitor analysis",
+
+            id: nanoid(),
+            description: "",
+            status: "Done",
+            subtasks: [
+              {
+                title: "Find direct and indirect competitors",
+                isCompleted: true,
+              },
+              {
+                title: "SWOT analysis for each competitor",
+                isCompleted: true,
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+
             title: "Research the market",
             description:
               "We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.",
@@ -310,6 +464,8 @@ export const data: Board[] = [
         tasks: [
           {
             title: "Plan Product Hunt launch",
+
+            id: nanoid(),
             description: "",
             status: "Todo",
             subtasks: [
@@ -341,6 +497,8 @@ export const data: Board[] = [
           },
           {
             title: "Share on Show HN",
+
+            id: nanoid(),
             description: "",
             status: "",
             subtasks: [
@@ -360,6 +518,8 @@ export const data: Board[] = [
           },
           {
             title: "Write launch article to publish on multiple channels",
+
+            id: nanoid(),
             description: "",
             status: "",
             subtasks: [
@@ -398,6 +558,20 @@ export const data: Board[] = [
   {
     name: "Roadmap",
     id: nanoid(),
-    columns: [],
+    columns: [
+      {
+        name: "Todo",
+        id: nanoid(),
+        tasks: [
+          {
+            title: "Add support for multiple users",
+            description: "",
+            id: nanoid(),
+            status: "Todo",
+            subtasks: [],
+          },
+        ],
+      },
+    ],
   },
 ];

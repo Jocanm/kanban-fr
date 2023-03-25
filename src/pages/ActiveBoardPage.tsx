@@ -1,25 +1,18 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ActiveBoardColumn } from "../components/active-board-column/ActiveBoardColumn";
+import { NewColumnButton } from "../components/active-board-column/NewColumnButton";
 import { NoBoardAlert } from "../components/ui/no-board-alert/NoBoardAlert";
 import { For } from "../components/utils/For";
+import { CustomScrollBarObject } from "../shared/css/css.global";
 import { useActiveBoardSelector } from "../shared/hooks/useActiveBoardSelector";
 
 const ColumnsContainer = styled(Stack)(({ theme }) => ({
   height: "100%",
   overflow: "auto",
   flexDirection: "row",
-  gap: theme.spacing(4),
-  "&::-webkit-scrollbar": {
-    width: "0.5rem",
-    height: "0.5rem",
-  },
-  "&::-webkit-scrollbar-thumb": {
-    backgroundColor: theme.palette.lines.main,
-    borderRadius: "1.25rem",
-    width: ".625rem",
-    height: "1.25rem",
-  },
+  gap: theme.spacing(6),
+  ...CustomScrollBarObject({ theme }),
 }));
 
 export const ActiveBoardPage = () => {
@@ -36,11 +29,14 @@ export const ActiveBoardPage = () => {
   }
 
   return (
-    <ColumnsContainer>
+    <ColumnsContainer p={4}>
       <For
         each={activeBoard.columns}
-        render={(col) => <ActiveBoardColumn key={col.id} column={col} />}
+        render={(col, i) => (
+          <ActiveBoardColumn key={col.id} column={col} index={i} />
+        )}
       />
+      <NewColumnButton />
     </ColumnsContainer>
   );
 };
