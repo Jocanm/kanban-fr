@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 import { data } from "../../../config/data/data";
-import { Board } from "../../../config/interfaces/board.interface";
+import {
+  Board,
+  Column,
+  Task,
+} from "../../../config/interfaces/board.interface";
 import { CreateBoardBody, UpdateBoardBody } from "./request.interfaces";
 
 interface InitialState {
@@ -48,14 +52,21 @@ export const boardsReducer = createSlice({
       const board = state.boards.find((board2) => board2.id === payload.id);
       if (!board) return;
 
-      const newColumns = payload.columns.map((column, index) => ({
-        tasks: board.columns[index]?.tasks || [],
-        id: nanoid(),
-        name: column,
+      const columnsTasks: Record<string, Task[]> = {};
+
+      board.columns.forEach((column) => {
+        columnsTasks[column.id] = column.tasks;
+      });
+
+      const newColumns: Column[] = payload.columns.map((column) => ({
+        id: column.columnId ?? nanoid(),
+        name: column.columnName,
+        tasks: column.columnId ? columnsTasks[column.columnId] || [] : [],
       }));
 
       board.name = payload.name;
       board.columns = newColumns;
+      state.activeBoard = board;
     },
   },
 });

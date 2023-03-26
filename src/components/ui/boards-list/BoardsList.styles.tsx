@@ -14,14 +14,19 @@ export const BoardItem = styled((props: Props) => (
   alignItems: "center",
   gap: spacing(3),
   cursor: "pointer",
+  "& span": {
+    flex: 1,
+    // paddingRight: spacing(4),
+    wordBreak: "break-word",
+  },
   "& svg": {
     fill: palette.customGrey.main,
   },
-  "&:hover": {
-    color: "#fff",
-    backgroundColor: palette.primary.main,
+  "&:hover": isActive || {
+    color: palette.primary.main,
+    backgroundColor: palette.customGrey.light,
     "& svg": {
-      fill: "#fff",
+      fill: palette.primary.main,
     },
   },
   ...(isActive && {

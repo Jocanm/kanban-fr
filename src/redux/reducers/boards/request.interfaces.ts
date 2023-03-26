@@ -3,6 +3,11 @@ export interface CreateBoardBody {
   columns: string[];
 }
 
-export interface UpdateBoardBody extends CreateBoardBody {
+export interface UpdateBoardBody {
   id: string;
+  name: string;
+  columns: {
+    columnId?: string;
+    columnName: string;
+  }[];
 }

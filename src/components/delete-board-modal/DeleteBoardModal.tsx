@@ -33,7 +33,13 @@ export const DeleteBoardModal = ({ isOpen, onClose }: Props) => {
         <Typography variant="h6" fontWeight={700} color="error">
           Delete this board?
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{
+            wordBreak: "break-word",
+          }}
+        >
           Are you sure you want to delete the {`"${activeBoard.name}"`} board?
           This action will remove all columns and tasks and cannot be reversed.
         </Typography>

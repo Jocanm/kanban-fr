@@ -14,8 +14,8 @@ import { useActiveBoardSelector } from "../shared/hooks/useActiveBoardSelector";
 
 const ColumnsContainer = styled(Stack)(({ theme }) => ({
   height: "100%",
-  overflow: "auto",
   flexDirection: "row",
+  overflow: "auto",
   gap: theme.spacing(6),
   ...CustomScrollBarObject({ theme }),
 }));
@@ -40,7 +40,7 @@ export const ActiveBoardPage = () => {
 
   if (!activeBoard) return null;
 
-  if (activeBoard?.columns.length === 0) {
+  if (activeBoard.columns.length === 0) {
     return (
       <NoBoardAlert type="board-empty" onAction={handleOpenEditBoardModal} />
     );

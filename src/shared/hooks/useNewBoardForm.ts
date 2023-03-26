@@ -20,6 +20,7 @@ const formSchema = yup.object({
   boardColumns: yup.array().of(
     yup.object({
       columnName: stringRequired,
+      columnId: yup.string().optional(),
     })
   ),
 });
@@ -39,7 +40,10 @@ export const useNewBoardForm = ({
       boardName: isEditMode && activeBoard ? activeBoard.name : "",
       boardColumns:
         isEditMode && activeBoard
-          ? activeBoard.columns.map((column) => ({ columnName: column.name }))
+          ? activeBoard.columns.map((column) => ({
+              columnName: column.name,
+              columnId: column.id,
+            }))
           : [],
     },
   });
@@ -61,12 +65,11 @@ export const useNewBoardForm = ({
 
   const onUpdateBoard = (data: NewBoardFormSchema) => {
     if (!activeBoard) return;
-    const columns = data.boardColumns?.map((column) => column.columnName) ?? [];
     dispatch(
       updateBoard({
-        columns,
         id: activeBoard.id,
         name: data.boardName,
+        columns: data.boardColumns ?? [],
       })
     );
   };

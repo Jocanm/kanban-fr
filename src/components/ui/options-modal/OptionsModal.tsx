@@ -9,8 +9,6 @@ interface Props {
 }
 
 const paperSxProps = (theme: Theme) => ({
-  top: 70,
-  position: "fixed",
   boxShadow: `0 10px 20px ${theme.palette.primary.main}25`,
 });
 

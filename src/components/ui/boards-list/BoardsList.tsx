@@ -49,7 +49,7 @@ export const BoardsList = () => {
             onClick={() => handleBoardClick(board)}
           >
             <IconBoard />
-            {board.name}
+            <span>{board.name}</span>
           </BoardItem>
         ))}
         <CreateBoardItem

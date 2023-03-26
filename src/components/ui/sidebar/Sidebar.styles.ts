@@ -1,16 +1,18 @@
+import { Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Box, Stack } from "@mui/material";
 
-export const SidebarContainer = styled(Box)(({ theme }) => ({
-  width: "16.3rem",
+export const SidebarContainer = styled(Stack)(({ theme }) => ({
   height: "100%",
+  display: "flex",
+  width: "16.25rem",
+  flexDirection: "column",
+  spacing: theme.spacing(4),
+  justifyContent: "space-between",
+  paddingTop: theme.spacing(4),
+  paddingBottom: theme.spacing(6),
+  paddingRight: theme.spacing(5),
   backgroundColor:
     theme.palette.mode === "dark" ? theme.palette.customGrey.dark : "#fff",
-  padding: theme.spacing(6, 0),
-  paddingRight: theme.spacing(5),
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
   [theme.breakpoints.up("lg")]: {
     width: "18.75rem",
   },
@@ -23,20 +25,11 @@ export const SidebarContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(4),
   },
   ".sidebar-custom-item": {
+    paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(2.5),
     paddingBottom: theme.spacing(2.5),
     borderRadius: "0 6.25rem 6.25rem 0",
-  },
-}));
-
-export const ImageLogoContainer = styled("img")(({ theme }) => ({
-  width: "9.5rem",
-  height: "auto",
-  objectFit: "contain",
-  display: "none",
-  paddingLeft: theme.spacing(6),
-  [theme.breakpoints.up("md")]: {
-    display: "block",
+    letterSpacing: ".0313rem",
   },
 }));
 

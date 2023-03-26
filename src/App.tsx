@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import { NewBoardForm } from "./components/new-board-form/NewBoardForm";
@@ -9,36 +9,36 @@ import { ActiveBoardPage } from "./pages/ActiveBoardPage";
 import { store } from "./redux/store/store";
 
 const MainContainer = styled(Box)(({ theme }) => ({
+  flexGrow: 1,
   backgroundColor:
     theme.palette.mode === "dark"
       ? theme.palette.customGrey.darker
       : theme.palette.customGrey.light,
-  flexGrow: 1,
-  borderTop: `1px solid ${
-    theme.palette.mode === "dark" ? "#fff2" : theme.palette.lines.light
-  }`,
 }));
 
 const App = () => (
   <ThemeContextProvider>
     <Provider store={store}>
-      <Box height="100vh" display="flex">
-        <Box display={{ xs: "none", md: "block" }}>
-          <Sidebar />
-        </Box>
-        <Box
-          width="100%"
-          display="flex"
-          flexDirection="column"
-          overflow="hidden"
-        >
-          <Navbar />
-          <MainContainer component="main" overflow="auto">
+      <Stack overflow="hidden">
+        <Navbar />
+        <Box display="flex" overflow="hidden">
+          <Box display={{ xs: "none", md: "block" }}>
+            <Sidebar />
+          </Box>
+          <MainContainer
+            component="main"
+            overflow="auto"
+            width="100%"
+            height={{
+              xs: "92vh",
+              md: "90vh",
+            }}
+          >
             <ActiveBoardPage />
           </MainContainer>
+          <NewBoardForm />
         </Box>
-        <NewBoardForm />
-      </Box>
+      </Stack>
     </Provider>
   </ThemeContextProvider>
 );

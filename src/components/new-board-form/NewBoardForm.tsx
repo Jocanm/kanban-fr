@@ -18,6 +18,7 @@ import {
 } from "../../shared/hooks/useNewBoardForm";
 import { Form } from "../form/Form";
 import { MyInput } from "../my-input/MyInput";
+import { If } from "../utils";
 import { BoardColumns } from "./BoardFormColumns";
 
 export const NewBoardForm = () => {
@@ -69,7 +70,13 @@ export const NewBoardForm = () => {
               </Typography>
               <MyInput name="boardName" />
             </Stack>
-            <BoardColumns fields={fields} methods={methods} onRemove={remove} />
+            <If condition={fields.length > 0}>
+              <BoardColumns
+                fields={fields}
+                methods={methods}
+                onRemove={remove}
+              />
+            </If>
           </Stack>
           <Stack spacing={4}>
             <Button

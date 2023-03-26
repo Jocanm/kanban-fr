@@ -1,10 +1,11 @@
-import { Add, KeyboardArrowDown, MoreVert } from "@mui/icons-material";
-import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
+import { Add, KeyboardArrowDown } from "@mui/icons-material";
+import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { LogoMobile } from "../../../assets";
+import { LogoDark, LogoLight, LogoMobile } from "../../../assets";
+import { useThemeContext } from "../../../config/theme/ThemeContext";
 import { selectActiveBoard } from "../../../redux/reducers/boards/boards.selector";
 import { setIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.reducer";
 import { selectIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.selector";
@@ -19,9 +20,26 @@ const CustomImg = styled("img")(({ theme }) => ({
   },
 }));
 
+export const ImageLogoContainer = styled("div")(({ theme }) => ({
+  display: "none",
+  alignItems: "center",
+  minWidth: "16.3rem",
+  paddingLeft: theme.spacing(6),
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    height: 96,
+  },
+  [theme.breakpoints.up("lg")]: {
+    minWidth: "18.75rem",
+  },
+}));
+
 export const Navbar = () => {
+  const { mode } = useThemeContext();
   const activeBoard = useSelector(selectActiveBoard);
   const showOptions = useSelector(selectIsOptionsModalOpen);
+
+  const logoSrc = mode === "light" ? LogoDark : LogoLight;
 
   const dispatch = useAppDispatch();
 
@@ -41,7 +59,23 @@ export const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={{ px: 4, py: { sm: 4, md: 6 } }} disableGutters>
+      <Toolbar
+        sx={({ palette }) => ({
+          px: 4,
+          pl: { md: 0 },
+          height: {
+            xs: "8vh",
+            md: "10vh",
+            borderBottom: `1px solid ${
+              palette.mode === "dark" ? "#fff2" : palette.lines.light
+            }`,
+          },
+        })}
+        disableGutters
+      >
+        <ImageLogoContainer>
+          <img src={logoSrc} alt="logo" />
+        </ImageLogoContainer>
         <Stack
           width="100%"
           direction="row"
@@ -66,6 +100,16 @@ export const Navbar = () => {
                 <Typography
                   variant="h6"
                   fontWeight="bold"
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  width="100%"
+                  maxWidth={{
+                    xs: "8rem",
+                    sm: "16rem",
+                    md: "30rem",
+                    lg: "40rem",
+                    xl: "60rem",
+                  }}
                   fontSize={{
                     xs: "1rem",
                     sm: "1.25rem",
