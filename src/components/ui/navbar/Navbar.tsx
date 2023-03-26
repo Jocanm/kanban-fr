@@ -2,12 +2,16 @@ import { Add, KeyboardArrowDown, MoreVert } from "@mui/icons-material";
 import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { LogoMobile } from "../../../assets";
-import { selectActiveBoard } from "../../../redux/reducers/boards.selector";
+import { selectActiveBoard } from "../../../redux/reducers/boards/boards.selector";
+import { setIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.reducer";
+import { selectIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.selector";
+import { useAppDispatch } from "../../../redux/store/store";
 import { If } from "../../utils";
 import { OptionsModal } from "../options-modal/OptionsModal";
+import { BoardMenuOptions } from "./BoardMenuOptions";
 
 const CustomImg = styled("img")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
@@ -16,12 +20,13 @@ const CustomImg = styled("img")(({ theme }) => ({
 }));
 
 export const Navbar = () => {
-  const [showOptions, setShowOptions] = useState(false);
-
   const activeBoard = useSelector(selectActiveBoard);
+  const showOptions = useSelector(selectIsOptionsModalOpen);
 
-  const openOptions = () => setShowOptions(true);
-  const closeOptions = () => setShowOptions(false);
+  const dispatch = useAppDispatch();
+
+  const openOptions = () => dispatch(setIsOptionsModalOpen(true));
+  const closeOptions = () => dispatch(setIsOptionsModalOpen(false));
 
   const disableNewTaskButton = () => {
     if (!activeBoard) return true;
@@ -31,6 +36,7 @@ export const Navbar = () => {
   useEffect(() => {
     if (!activeBoard) return;
     closeOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeBoard]);
 
   return (
@@ -80,23 +86,17 @@ export const Navbar = () => {
           </Box>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Button
+              size="small"
               variant="contained"
               disabled={disableNewTaskButton()}
-              size="small"
             >
               <Add />
-              <Box
-                ml={1}
-                textTransform="capitalize"
-                display={{ xs: "none", md: "block" }}
-              >
+              <Box ml={1} display={{ xs: "none", md: "block" }}>
                 Add New Task
               </Box>
             </Button>
             <If condition={activeBoard}>
-              <IconButton size="small">
-                <MoreVert />
-              </IconButton>
+              <BoardMenuOptions />
             </If>
           </Stack>
         </Stack>

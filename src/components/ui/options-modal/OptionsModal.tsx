@@ -1,5 +1,6 @@
-import { Dialog, SxProps, Theme, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { Dialog, Slide, useMediaQuery, useTheme, Theme } from "@mui/material";
+import React, { useEffect } from "react";
+import { TransitionProps } from "@mui/material/transitions";
 import { Sidebar } from "../sidebar/Sidebar";
 
 interface Props {
@@ -7,11 +8,19 @@ interface Props {
   onClose: () => void;
 }
 
-const paperSxProps: SxProps<Theme> = ({ palette }) => ({
+const paperSxProps = (theme: Theme) => ({
   top: 70,
-  borderRadius: 2,
   position: "fixed",
-  boxShadow: `0 10px 20px ${palette.primary.main}25`,
+  boxShadow: `0 10px 20px ${theme.palette.primary.main}25`,
+});
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<unknown, string>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="down" ref={ref} {...props} />;
 });
 
 export const OptionsModal = ({ isOpen, onClose }: Props) => {
@@ -27,6 +36,7 @@ export const OptionsModal = ({ isOpen, onClose }: Props) => {
     <Dialog
       onClose={onClose}
       open={isOpen && downMd}
+      TransitionComponent={Transition}
       PaperProps={{ sx: paperSxProps }}
     >
       <Sidebar />

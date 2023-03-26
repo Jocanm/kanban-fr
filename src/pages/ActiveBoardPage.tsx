@@ -1,9 +1,14 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ActiveBoardColumn } from "../components/active-board-column/ActiveBoardColumn";
 import { NewColumnButton } from "../components/active-board-column/NewColumnButton";
 import { NoBoardAlert } from "../components/ui/no-board-alert/NoBoardAlert";
 import { For } from "../components/utils/For";
+import {
+  setIsNewBoardModalEditMode,
+  setIsNewBoardModalOpen,
+} from "../redux/reducers/ui/ui.reducer";
+import { useAppDispatch } from "../redux/store/store";
 import { CustomScrollBarObject } from "../shared/css/css.global";
 import { useActiveBoardSelector } from "../shared/hooks/useActiveBoardSelector";
 
@@ -18,14 +23,27 @@ const ColumnsContainer = styled(Stack)(({ theme }) => ({
 export const ActiveBoardPage = () => {
   const { activeBoard, boards } = useActiveBoardSelector();
 
+  const dispatch = useAppDispatch();
+
+  const openNewBoardModal = () => {
+    dispatch(setIsNewBoardModalOpen(true));
+  };
+
+  const handleOpenEditBoardModal = () => {
+    openNewBoardModal();
+    dispatch(setIsNewBoardModalEditMode(true));
+  };
+
   if (boards.length === 0) {
-    return <NoBoardAlert type="no-boards" onAction={() => {}} />;
+    return <NoBoardAlert type="no-boards" onAction={openNewBoardModal} />;
   }
 
   if (!activeBoard) return null;
 
   if (activeBoard?.columns.length === 0) {
-    return <NoBoardAlert type="board-empty" onAction={() => {}} />;
+    return (
+      <NoBoardAlert type="board-empty" onAction={handleOpenEditBoardModal} />
+    );
   }
 
   return (

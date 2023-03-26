@@ -1,5 +1,6 @@
 import { PaletteMode } from "@mui/material";
 import { ThemeOptions, darken } from "@mui/material/styles";
+import { CustomScrollBarObject } from "../../shared/css/css.global";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -35,8 +36,8 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
         contrastText: "#fff",
       },
       secondary: {
-        main: mode === "dark" ? "#fff" : "#635FC71A",
-        dark: mode === "dark" ? "#fff" : "#635FC740",
+        main: mode === "dark" ? "#fff" : "#f0effa",
+        dark: mode === "dark" ? "#fff" : "#d8d7f1",
         contrastText: "#635fc7",
       },
       black: {
@@ -62,6 +63,8 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
           root: {
             boxShadow: "none",
             borderRadius: "1.25rem",
+            textTransform: "none",
+            fontWeight: 700,
           },
           sizeSmall: {
             padding: "0.5rem 1rem",
@@ -73,6 +76,7 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
               ? {
                   "&:hover": {
                     backgroundColor: theme.palette.primary.light,
+                    boxShadow: "none",
                   },
                 }
               : {}),
@@ -111,23 +115,83 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
         styleOverrides: {
           root: ({ theme }) => ({
             backgroundColor:
-              mode === "dark" ? theme.palette.customGrey.darker : "#fff",
+              mode === "dark" ? theme.palette.customGrey.dark : "#fff",
+            backgroundImage: "none",
             boxShadow: "0px .25rem .375rem rgba(54, 78, 126, 0.101545)",
             borderRadius: ".5rem",
           }),
         },
       },
       MuiDialog: {
+        defaultProps: {
+          keepMounted: false,
+        },
         styleOverrides: {
           paper: ({ theme }) => ({
             backgroundColor:
               mode === "dark" ? theme.palette.customGrey.dark : "#fff",
             backgroundImage: "none",
-            boxShadow: "0px .25rem .375rem rgba(54, 78, 126, 0.101545)",
             borderRadius: theme.spacing(2),
+            ...CustomScrollBarObject({ theme }),
           }),
           container: {
             backgroundColor: "#0000005",
+          },
+        },
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            "& .MuiInputBase-input": {
+              padding: ".6rem .8rem",
+              fontSize: "0.875rem",
+              "::placeholder": {
+                fontSize: "0.875rem",
+              },
+            },
+            ".MuiInputLabel-root": {
+              color: theme.palette.customGrey.main,
+              "&.Mui-focused": {
+                color: theme.palette.primary.main,
+              },
+              "&.Mui-error": {
+                color: theme.palette.error.main,
+              },
+            },
+            "& .MuiOutlinedInput-root": {
+              // borderRadius: "1.25rem",
+              // ":hover fieldset": {
+              //   borderColor: `${theme.palette.customGrey.main}80`,
+              // },
+              // ":not(.Mui-focused):hover fieldset": {
+              // "&.Mui-focused fieldset": {
+              // borderColor: `${theme.palette.customGrey.main}80`,
+              // },
+              ":not(.Mui-focused, .Mui-error):hover fieldset": {
+                // borderColor: `${theme.palette.customGrey.main}80`,
+                borderColor: theme.palette.primary.main,
+              },
+              "& fieldset": {
+                borderColor: `${theme.palette.customGrey.main}80`,
+              },
+            },
+          }),
+        },
+        defaultProps: {
+          FormHelperTextProps: {
+            variant: "standard",
+            error: true,
+          },
+          InputLabelProps: {
+            shrink: true,
+          },
+        },
+      },
+      MuiSnackbar: {
+        defaultProps: {
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "center",
           },
         },
       },
@@ -136,6 +200,9 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
       fontFamily: ["Plus Jakarta Sans", "sans-serif"].join(","),
       allVariants: {
         color: mode === "dark" ? "#fff" : "#000",
+      },
+      subtitle2: {
+        color: mode === "dark" ? "#fff" : "#828FA3",
       },
     },
     spacing: (factor: number) => `${0.25 * factor}rem`,

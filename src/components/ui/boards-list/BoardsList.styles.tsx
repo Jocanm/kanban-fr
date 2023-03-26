@@ -1,12 +1,12 @@
 import { styled } from "@mui/material/styles";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  active?: boolean;
+  isActive?: boolean;
 };
 
 export const BoardItem = styled((props: Props) => (
   <div {...props}>{props.children}</div>
-))(({ theme: { palette, spacing }, active }) => ({
+))(({ theme: { palette, spacing }, isActive }) => ({
   fontWeight: 700,
   paddingLeft: spacing(6),
   color: palette.customGrey.main,
@@ -24,7 +24,7 @@ export const BoardItem = styled((props: Props) => (
       fill: "#fff",
     },
   },
-  ...(active && {
+  ...(isActive && {
     color: "#fff",
     backgroundColor: palette.primary.main,
     "& svg": {

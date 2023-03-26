@@ -31,7 +31,7 @@ export const NoBoardAlert = ({ onAction, type }: Props) => {
       >
         {message}
       </Typography>
-      <Button variant="contained" startIcon={<Add />}>
+      <Button variant="contained" startIcon={<Add />} onClick={onAction}>
         <Box textTransform="capitalize">{buttonText}</Box>
       </Button>
     </Stack>

@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Provider } from "react-redux";
+import { NewBoardForm } from "./components/new-board-form/NewBoardForm";
 import { Navbar } from "./components/ui/navbar/Navbar";
 import { Sidebar } from "./components/ui/sidebar/Sidebar";
 import { ThemeContextProvider } from "./config/theme/ThemeContextProvider";
@@ -36,6 +37,7 @@ const App = () => (
             <ActiveBoardPage />
           </MainContainer>
         </Box>
+        <NewBoardForm />
       </Box>
     </Provider>
   </ThemeContextProvider>

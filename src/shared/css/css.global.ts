@@ -37,3 +37,14 @@ export const CustomScrollBarObject = ({
     height: "1.25rem",
   },
 });
+
+export const modalsWidth = {
+  xs: "80vw",
+  sm: "25rem",
+  md: "30rem",
+};
+
+export const modalsPadding = {
+  xs: 6,
+  md: 8,
+};

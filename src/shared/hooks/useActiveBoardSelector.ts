@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { setActiveBoard } from "../../redux/reducers/boards.reducer";
+import { setActiveBoard } from "../../redux/reducers/boards/boards.reducer";
 import {
   selectBoards,
   selectActiveBoard,
-} from "../../redux/reducers/boards.selector";
+} from "../../redux/reducers/boards/boards.selector";
 import { useAppDispatch } from "../../redux/store/store";
 
 export const useActiveBoardSelector = () => {

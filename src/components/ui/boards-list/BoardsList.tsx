@@ -3,12 +3,16 @@ import { useSelector } from "react-redux";
 import {
   selectActiveBoard,
   selectBoards,
-} from "../../../redux/reducers/boards.selector";
+} from "../../../redux/reducers/boards/boards.selector";
 import { BoardItem, CreateBoardItem } from "./BoardsList.styles";
 import { IconBoard } from "../../../assets/react-svg";
 import { useAppDispatch } from "../../../redux/store/store";
-import { setActiveBoard } from "../../../redux/reducers/boards.reducer";
+import { setActiveBoard } from "../../../redux/reducers/boards/boards.reducer";
 import { Board } from "../../../config/interfaces/board.interface";
+import {
+  setIsNewBoardModalOpen,
+  setIsOptionsModalOpen,
+} from "../../../redux/reducers/ui/ui.reducer";
 
 export const BoardsList = () => {
   const boards = useSelector(selectBoards);
@@ -18,6 +22,11 @@ export const BoardsList = () => {
 
   const handleBoardClick = (board: Board) => {
     dispatch(setActiveBoard(board));
+  };
+
+  const openNewBoardModal = () => {
+    dispatch(setIsOptionsModalOpen(false));
+    dispatch(setIsNewBoardModalOpen(true));
   };
 
   return (
@@ -36,14 +45,17 @@ export const BoardsList = () => {
           <BoardItem
             key={board.id}
             className="sidebar-custom-item"
-            active={board.id === activeBoard?.id}
+            isActive={board.id === activeBoard?.id}
             onClick={() => handleBoardClick(board)}
           >
             <IconBoard />
             {board.name}
           </BoardItem>
         ))}
-        <CreateBoardItem className="sidebar-custom-item">
+        <CreateBoardItem
+          onClick={openNewBoardModal}
+          className="sidebar-custom-item"
+        >
           <IconBoard />+ Create New Board
         </CreateBoardItem>
       </Box>

@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/exports";
 import { TypedUseSelectorHook } from "react-redux/es/types";
-import { boardsReducer } from "../reducers/boards.reducer";
+import { boardsReducer } from "../reducers/boards/boards.reducer";
+import { uiReducer } from "../reducers/ui/ui.reducer";
 
 export const store = configureStore({
   reducer: {
+    ui: uiReducer.reducer,
     boards: boardsReducer.reducer,
   },
 });
