@@ -40,7 +40,7 @@ export const BoardsList = () => {
       >
         ALL BOARDS ({boards.length})
       </Typography>
-      <Box>
+      <Stack spacing={1}>
         {boards.map((board) => (
           <BoardItem
             key={board.id}
@@ -58,7 +58,7 @@ export const BoardsList = () => {
         >
           <IconBoard />+ Create New Board
         </CreateBoardItem>
-      </Box>
+      </Stack>
     </Stack>
   );
 };

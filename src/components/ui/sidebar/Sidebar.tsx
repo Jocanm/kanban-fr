@@ -1,16 +1,12 @@
 import { VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
+import { setShowSidebar } from "../../../redux/reducers/ui/ui.reducer";
+import { useAppDispatch } from "../../../redux/store/store";
 import { BoardsList } from "../boards-list/BoardsList";
 import { ThemeSelector } from "../theme-selector/ThemeSelector";
 import { HideSidebarButton, SidebarContainer } from "./Sidebar.styles";
-import { selectShowSidebar } from "../../../redux/reducers/ui/ui.selector";
-import { useAppDispatch } from "../../../redux/store/store";
-import { setShowSidebar } from "../../../redux/reducers/ui/ui.reducer";
 
 export const Sidebar = () => {
-  const showSidebar = useSelector(selectShowSidebar);
-
   const dispatch = useAppDispatch();
 
   const handleHideSidebar = () => {

@@ -1,4 +1,4 @@
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction, current } from "@reduxjs/toolkit";
 import { data } from "../../../config/data/data";
 import {
   Board,
@@ -9,6 +9,7 @@ import {
   CreateBoardBody,
   CreateTaskBody,
   UpdateBoardBody,
+  UpdateTaskBody,
 } from "./request.interfaces";
 
 interface InitialState {
@@ -108,6 +109,33 @@ export const boardsReducer = createSlice({
         board.columns = state.activeBoard.columns;
       });
     },
+    updateTask: (state, { payload }: PayloadAction<UpdateTaskBody>) => {
+      if (!state.activeBoard) return;
+
+      const allTasks = state.activeBoard.columns.reduce<Task[]>(
+        (acc, column) => [...acc, ...column.tasks],
+        []
+      );
+
+      const task = allTasks.find((taskItem) => taskItem.id === payload.id);
+
+      if (!task) return;
+
+      const subtasks: Task["subtasks"] = payload.subtasks.map((subtask) => ({
+        title: subtask.title,
+        id: subtask.id ?? nanoid(),
+        isCompleted: subtask.isCompleted,
+      }));
+
+      task.title = payload.title;
+      task.description = payload.description || "";
+      task.subtasks = subtasks;
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
+    },
     completeSubtask: (state, { payload }: PayloadAction<string>) => {
       if (!state.activeTask || !state.activeBoard) return;
 
@@ -134,6 +162,8 @@ export const boardsReducer = createSlice({
     },
     changeTaskStatus: (state, { payload }: PayloadAction<string>) => {
       if (!state.activeTask || !state.activeBoard) return;
+
+      if (state.activeTask.status === payload) return;
 
       const columnSelected = state.activeBoard.columns.find(
         (column) => column.id === payload
@@ -179,6 +209,7 @@ export const boardsReducer = createSlice({
 export const {
   addNewTask,
   deleteTask,
+  updateTask,
   addNewBoard,
   deleteBoard,
   updateBoard,

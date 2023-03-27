@@ -30,6 +30,7 @@ export const SidebarContainer = styled(Stack)(({ theme }) => ({
     paddingBottom: theme.spacing(2.5),
     borderRadius: "0 6.25rem 6.25rem 0",
     letterSpacing: ".0313rem",
+    transition: "all .2s ease",
   },
 }));
 

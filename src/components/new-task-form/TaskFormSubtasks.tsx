@@ -1,5 +1,5 @@
-import { KeyboardArrowDown } from "@mui/icons-material";
-import { Stack, Typography, Button } from "@mui/material";
+import { KeyboardArrowDown, Close } from "@mui/icons-material";
+import { Stack, Typography, Button, Box } from "@mui/material";
 import { UseFormReturn } from "react-hook-form";
 import { NewTaskFormSchema } from "../../shared/hooks/useNewTaskForm";
 import { MyInput } from "../my-input/MyInput";
@@ -35,9 +35,9 @@ export const TaskFormSubtasks = ({
           return (
             <Stack
               key={field.id}
+              spacing={2}
               direction="row"
               alignItems="center"
-              spacing={2}
             >
               <MyInput
                 error={hasError}
@@ -45,18 +45,22 @@ export const TaskFormSubtasks = ({
                 placeholder="e.g. Take a break"
                 sx={{ flexGrow: 1 }}
               />
-              <KeyboardArrowDown sx={iconSx} onClick={() => remove(index)} />
+              <Close sx={iconSx} onClick={() => remove(index)} />
             </Stack>
           );
         }}
       />
-      <Button
-        color="secondary"
-        variant="contained"
-        onClick={() => append({ title: "" })}
-      >
-        Add New Subtask
-      </Button>
+      <Box>
+        <Button
+          fullWidth
+          color="secondary"
+          variant="contained"
+          onClick={() => append({ title: "" })}
+          sx={{ mt: 2 }}
+        >
+          Add New Subtask
+        </Button>
+      </Box>
     </Stack>
   );
 };

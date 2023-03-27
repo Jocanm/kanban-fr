@@ -44,8 +44,8 @@ export const DeleteTaskModal = () => {
             wordBreak: "break-word",
           }}
         >
-          Are you sure you want to delete the ‘Build settings UI’ task and its
-          subtasks? This action cannot be reversed.
+          Are you sure you want to delete the {`"${activeTask?.title}"`} task
+          and its subtasks? This action cannot be reversed.
         </Typography>
         <Stack direction="row" spacing={4}>
           <Button

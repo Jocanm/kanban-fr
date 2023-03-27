@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 import { ActiveBoardColumn } from "../components/active-board-column/ActiveBoardColumn";
 import { NewColumnButton } from "../components/active-board-column/NewColumnButton";
 import { DeleteTaskModal } from "../components/delete-task-modal/DeleteTaskModal";
@@ -14,6 +15,8 @@ import {
 import { useAppDispatch } from "../redux/store/store";
 import { CustomScrollBarObject } from "../shared/css/css.global";
 import { useActiveBoardSelector } from "../shared/hooks/useActiveBoardSelector";
+import { selectShowNewTaskModal } from "../redux/reducers/ui/ui.selector";
+import { If } from "../components/utils";
 
 const ColumnsContainer = styled(Stack)(({ theme }) => ({
   height: "100%",
@@ -24,6 +27,7 @@ const ColumnsContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export const ActiveBoardPage = () => {
+  const isOpen = useSelector(selectShowNewTaskModal);
   const { activeBoard, boards } = useActiveBoardSelector();
 
   const dispatch = useAppDispatch();
@@ -58,9 +62,11 @@ export const ActiveBoardPage = () => {
         )}
       />
       <NewColumnButton />
-      <NewTaskForm />
       <TaskDetails />
       <DeleteTaskModal />
+      <If condition={isOpen}>
+        <NewTaskForm />
+      </If>
     </ColumnsContainer>
   );
 };

@@ -18,3 +18,15 @@ export interface CreateTaskBody {
   subtasks: string[];
   description?: string;
 }
+
+export interface UpdateTaskBody {
+  id: string;
+  title: string;
+  columnId: string;
+  description?: string;
+  subtasks: {
+    id?: string;
+    title: string;
+    isCompleted: boolean;
+  }[];
+}

@@ -20,7 +20,14 @@ export const StatusValues = ({
       name={name}
       customLabel="Status"
       defaultValue={defaultValue}
-      SelectProps={{ IconComponent: KeyboardArrowDown }}
+      SelectProps={{
+        IconComponent: KeyboardArrowDown,
+        sx: {
+          "& .MuiSelect-icon": {
+            color: "primary.main",
+          },
+        },
+      }}
     >
       {status.map((item, index) => (
         <MenuItem

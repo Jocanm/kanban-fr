@@ -10,11 +10,15 @@ import {
   selectActiveBoardColumns,
   selectActiveTask,
 } from "../../redux/reducers/boards/boards.selector";
-import { selectShowDeleteTaskModal } from "../../redux/reducers/ui/ui.selector";
+import {
+  selectShowDeleteTaskModal,
+  selectShowNewTaskModal,
+} from "../../redux/reducers/ui/ui.selector";
 import { useAppDispatch } from "../../redux/store/store";
 import { BaseModal } from "../base-modal/BaseModal";
 import { Form } from "../form/Form";
 import { StatusValues } from "../new-task-form/StatusValues";
+import { If } from "../utils";
 import { SubtasksList } from "./SubtasksList";
 import { TaskMenuOptions } from "./TaskMenuOptions";
 
@@ -25,6 +29,7 @@ interface FormProps {
 export const TaskDetails = () => {
   const activeTask = useSelector(selectActiveTask);
   const status = useSelector(selectActiveBoardColumns);
+  const isNewTaskModalOpen = useSelector(selectShowNewTaskModal);
   const isDeleteTaskModalOpen = useSelector(selectShowDeleteTaskModal);
 
   const dispatch = useAppDispatch();
@@ -45,7 +50,7 @@ export const TaskDetails = () => {
     <BaseModal
       onClose={closeModal}
       transitionDuration={0}
-      open={!!activeTask && !isDeleteTaskModalOpen}
+      open={!!activeTask && !isDeleteTaskModalOpen && !isNewTaskModalOpen}
     >
       <Stack
         spacing={1}
@@ -71,13 +76,15 @@ export const TaskDetails = () => {
         {activeTask?.description || "No Description"}
       </Typography>
       <SubtasksList subtasks={activeTask?.subtasks || []} />
-      <Form methods={methods}>
-        <StatusValues
-          name="columnId"
-          status={status}
-          defaultValue={activeTask?.status}
-        />
-      </Form>
+      <If condition={!!activeTask}>
+        <Form methods={methods}>
+          <StatusValues
+            name="columnId"
+            status={status}
+            defaultValue={activeTask?.status}
+          />
+        </Form>
+      </If>
     </BaseModal>
   );
 };
