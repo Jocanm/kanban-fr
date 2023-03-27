@@ -48,12 +48,12 @@ export const BoardMenuOptions = () => {
         PaperProps={{ sx: { width: "10rem", mt: 4 } }}
       >
         <MenuItem onClick={handleOpenEditBoardModal}>
-          <Typography variant="body2" color="customGrey.main">
+          <Typography variant="body1" color="customGrey.main">
             Edit Board
           </Typography>
         </MenuItem>
         <MenuItem onClick={handleOpenDeleteModal}>
-          <Typography variant="body2" color="error">
+          <Typography variant="body1" color="error">
             Delete Board
           </Typography>
         </MenuItem>

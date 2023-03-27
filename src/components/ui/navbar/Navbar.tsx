@@ -1,42 +1,38 @@
 import { Add, KeyboardArrowDown } from "@mui/icons-material";
-import { AppBar, Box, Button, Stack, Toolbar } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
+import { AppBar, Box, Button, Stack } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { LogoDark, LogoLight, LogoMobile } from "../../../assets";
 import { useThemeContext } from "../../../config/theme/ThemeContext";
 import { selectActiveBoard } from "../../../redux/reducers/boards/boards.selector";
 import { setIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.reducer";
-import { selectIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.selector";
+import {
+  selectIsOptionsModalOpen,
+  selectShowSidebar,
+} from "../../../redux/reducers/ui/ui.selector";
 import { useAppDispatch } from "../../../redux/store/store";
 import { If } from "../../utils";
 import { OptionsModal } from "../options-modal/OptionsModal";
 import { BoardMenuOptions } from "./BoardMenuOptions";
+import {
+  ActiveBoardTitle,
+  BaseNavContainer,
+  CustomImg,
+  CustomToolbar,
+  ImageLogoContainer,
+} from "./Navbar.styles";
 
-const CustomImg = styled("img")(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
-    display: "none",
+const titleStackSx = {
+  cursor: {
+    xs: "pointer",
+    md: "default",
   },
-}));
-
-export const ImageLogoContainer = styled("div")(({ theme }) => ({
-  display: "none",
-  alignItems: "center",
-  minWidth: "16.3rem",
-  paddingLeft: theme.spacing(6),
-  [theme.breakpoints.up("md")]: {
-    display: "flex",
-    height: 96,
-  },
-  [theme.breakpoints.up("lg")]: {
-    minWidth: "18.75rem",
-  },
-}));
+};
 
 export const Navbar = () => {
   const { mode } = useThemeContext();
   const activeBoard = useSelector(selectActiveBoard);
+  const showSidebar = useSelector(selectShowSidebar);
   const showOptions = useSelector(selectIsOptionsModalOpen);
 
   const logoSrc = mode === "light" ? LogoDark : LogoLight;
@@ -59,29 +55,11 @@ export const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar
-        sx={({ palette }) => ({
-          px: 4,
-          pl: { md: 0 },
-          height: {
-            xs: "8vh",
-            md: "10vh",
-            borderBottom: `1px solid ${
-              palette.mode === "dark" ? "#fff2" : palette.lines.light
-            }`,
-          },
-        })}
-        disableGutters
-      >
-        <ImageLogoContainer>
+      <CustomToolbar showSidebar={showSidebar}>
+        <ImageLogoContainer showSidebar={showSidebar}>
           <img src={logoSrc} alt="logo" />
         </ImageLogoContainer>
-        <Stack
-          width="100%"
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+        <BaseNavContainer showSidebar={showSidebar}>
           <Box display="flex" alignItems="center" gap={4}>
             <CustomImg src={LogoMobile} alt="logo" />
             <Stack
@@ -89,34 +67,12 @@ export const Navbar = () => {
               direction="row"
               alignItems="center"
               onClick={openOptions}
-              sx={{
-                cursor: {
-                  xs: "pointer",
-                  md: "default",
-                },
-              }}
+              sx={titleStackSx}
             >
               <If condition={activeBoard}>
-                <Typography
-                  variant="h6"
-                  fontWeight="bold"
-                  textOverflow="ellipsis"
-                  overflow="hidden"
-                  width="100%"
-                  maxWidth={{
-                    xs: "8rem",
-                    sm: "16rem",
-                    md: "30rem",
-                    lg: "40rem",
-                    xl: "60rem",
-                  }}
-                  fontSize={{
-                    xs: "1rem",
-                    sm: "1.25rem",
-                  }}
-                >
+                <ActiveBoardTitle variant="h6">
                   {activeBoard?.name}
-                </Typography>
+                </ActiveBoardTitle>
               </If>
               <KeyboardArrowDown
                 color="primary"
@@ -143,8 +99,8 @@ export const Navbar = () => {
               <BoardMenuOptions />
             </If>
           </Stack>
-        </Stack>
-      </Toolbar>
+        </BaseNavContainer>
+      </CustomToolbar>
       <OptionsModal isOpen={showOptions} onClose={closeOptions} />
     </AppBar>
   );

@@ -16,7 +16,6 @@ export const BoardItem = styled((props: Props) => (
   cursor: "pointer",
   "& span": {
     flex: 1,
-    // paddingRight: spacing(4),
     wordBreak: "break-word",
   },
   "& svg": {

@@ -8,3 +8,5 @@ export const selectIsNewBoardModalOpen = (state: RootState) =>
 
 export const selectIsNewBoardModalEditMode = (state: RootState) =>
   state.ui.isNewBoardModalEditMode;
+
+export const selectShowSidebar = (state: RootState) => state.ui.showSidebar;

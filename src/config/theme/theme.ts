@@ -104,7 +104,6 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
           root: ({ theme }) => ({
             boxShadow: "none",
             "& .MuiToolbar-root": {
-              minHeight: "64px",
               backgroundColor:
                 mode === "dark" ? theme.palette.customGrey.dark : "#fff",
             },

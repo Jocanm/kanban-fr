@@ -47,7 +47,7 @@ export const ActiveBoardPage = () => {
   }
 
   return (
-    <ColumnsContainer p={4}>
+    <ColumnsContainer py={4} px={{ xs: 4, md: 6, lg: 8 }}>
       <For
         each={activeBoard.columns}
         render={(col, i) => (
