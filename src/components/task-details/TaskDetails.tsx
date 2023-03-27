@@ -1,8 +1,7 @@
-import { MoreVert } from "@mui/icons-material";
-import { IconButton, Stack, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import {
   changeTaskStatus,
   setActiveTask,
@@ -11,13 +10,13 @@ import {
   selectActiveBoardColumns,
   selectActiveTask,
 } from "../../redux/reducers/boards/boards.selector";
+import { selectShowDeleteTaskModal } from "../../redux/reducers/ui/ui.selector";
 import { useAppDispatch } from "../../redux/store/store";
 import { BaseModal } from "../base-modal/BaseModal";
-import { SubtasksList } from "./SubtasksList";
 import { Form } from "../form/Form";
 import { StatusValues } from "../new-task-form/StatusValues";
+import { SubtasksList } from "./SubtasksList";
 import { TaskMenuOptions } from "./TaskMenuOptions";
-import { MyInput } from "../my-input/MyInput";
 
 interface FormProps {
   columnId: string;
@@ -26,6 +25,7 @@ interface FormProps {
 export const TaskDetails = () => {
   const activeTask = useSelector(selectActiveTask);
   const status = useSelector(selectActiveBoardColumns);
+  const isDeleteTaskModalOpen = useSelector(selectShowDeleteTaskModal);
 
   const dispatch = useAppDispatch();
   const methods = useForm<FormProps>({});
@@ -42,7 +42,11 @@ export const TaskDetails = () => {
   }, [columnId, dispatch]);
 
   return (
-    <BaseModal open={!!activeTask} onClose={closeModal} transitionDuration={0}>
+    <BaseModal
+      onClose={closeModal}
+      transitionDuration={0}
+      open={!!activeTask && !isDeleteTaskModalOpen}
+    >
       <Stack
         spacing={1}
         direction="row"

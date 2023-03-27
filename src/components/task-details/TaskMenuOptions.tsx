@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
+import { useAppDispatch } from "../../redux/store/store";
+import { setShowDeleteTaskModal } from "../../redux/reducers/ui/ui.reducer";
 
 export const TaskMenuOptions = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
+
+  const dispatch = useAppDispatch();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -12,6 +16,10 @@ export const TaskMenuOptions = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDeleteTask = () => {
+    dispatch(setShowDeleteTaskModal(true));
   };
 
   return (
@@ -42,7 +50,7 @@ export const TaskMenuOptions = () => {
           </Typography>
         </MenuItem>
         <MenuItem>
-          <Typography variant="body2" color="error">
+          <Typography variant="body2" color="error" onClick={handleDeleteTask}>
             Delete Task
           </Typography>
         </MenuItem>

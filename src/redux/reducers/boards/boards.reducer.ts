@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, nanoid, current } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { data } from "../../../config/data/data";
 import {
   Board,
@@ -62,22 +62,17 @@ export const boardsReducer = createSlice({
         (boardItem) => boardItem.id === payload.id
       );
       if (!board) return;
-      console.log(current(board));
       const columnsTasks: Record<string, Task[]> = {};
 
       board.columns.forEach((column) => {
         columnsTasks[column.id] = column.tasks;
       });
 
-      // console.log({ columnsTasks });
-
       const newColumns: Column[] = payload.columns.map((column) => ({
         id: column.columnId ?? nanoid(),
         name: column.columnName,
         tasks: column.columnId ? columnsTasks[column.columnId] || [] : [],
       }));
-
-      // console.log({ newColumns });
 
       board.name = payload.name;
       board.columns = newColumns;
@@ -162,11 +157,28 @@ export const boardsReducer = createSlice({
         board.columns = state.activeBoard.columns;
       });
     },
+    deleteTask: (state, { payload }: PayloadAction<Task>) => {
+      if (!state.activeBoard) return;
+
+      const column = state.activeBoard.columns.find(
+        (columnItem) => columnItem.id === payload.status
+      );
+
+      if (!column) return;
+
+      column.tasks = column.tasks.filter((task) => task.id !== payload.id);
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
+    },
   },
 });
 
 export const {
   addNewTask,
+  deleteTask,
   addNewBoard,
   deleteBoard,
   updateBoard,

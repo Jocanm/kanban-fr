@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
   showSidebar: true,
   showNewTaskModal: false,
+  showDeleteTaskModal: false,
   isNewBoardModalOpen: false,
   isOptionsModalOpen: false,
   isNewBoardModalEditMode: false,
@@ -27,6 +28,9 @@ export const uiReducer = createSlice({
     setShowNewTaskModal: (state, action: PayloadAction<boolean>) => {
       state.showNewTaskModal = action.payload;
     },
+    setShowDeleteTaskModal: (state, action: PayloadAction<boolean>) => {
+      state.showDeleteTaskModal = action.payload;
+    },
   },
 });
 
@@ -35,5 +39,6 @@ export const {
   setShowNewTaskModal,
   setIsOptionsModalOpen,
   setIsNewBoardModalOpen,
+  setShowDeleteTaskModal,
   setIsNewBoardModalEditMode,
 } = uiReducer.actions;

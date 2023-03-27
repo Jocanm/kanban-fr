@@ -13,3 +13,6 @@ export const selectShowSidebar = (state: RootState) => state.ui.showSidebar;
 
 export const selectShowNewTaskModal = (state: RootState) =>
   state.ui.showNewTaskModal;
+
+export const selectShowDeleteTaskModal = (state: RootState) =>
+  state.ui.showDeleteTaskModal;
