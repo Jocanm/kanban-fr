@@ -5,6 +5,7 @@ import { NewColumnButton } from "../components/active-board-column/NewColumnButt
 import { NewTaskForm } from "../components/new-task-form/NewTaskForm";
 import { TaskDetails } from "../components/task-details/TaskDetails";
 import { NoBoardAlert } from "../components/ui/no-board-alert/NoBoardAlert";
+import { If } from "../components/utils";
 import { For } from "../components/utils/For";
 import {
   setIsNewBoardModalEditMode,
@@ -58,7 +59,9 @@ export const ActiveBoardPage = () => {
       />
       <NewColumnButton />
       <NewTaskForm />
+      {/* <If> */}
       <TaskDetails />
+      {/* </If> */}
     </ColumnsContainer>
   );
 };

@@ -9,7 +9,11 @@ interface Props {
   status: { key: string; value: string }[];
 }
 
-export const StatusValues = ({ name, status, defaultValue }: Props) => {
+export const StatusValues = ({
+  name,
+  status,
+  defaultValue = status.length === 1 ? status[0].key : undefined,
+}: Props) => {
   return (
     <MyInput
       select

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, nanoid, current } from "@reduxjs/toolkit";
 import { data } from "../../../config/data/data";
 import {
   Board,
@@ -58,20 +58,26 @@ export const boardsReducer = createSlice({
         : (state.activeBoard = null);
     },
     updateBoard: (state, { payload }: PayloadAction<UpdateBoardBody>) => {
-      const board = state.boards.find((board2) => board2.id === payload.id);
+      const board = state.boards.find(
+        (boardItem) => boardItem.id === payload.id
+      );
       if (!board) return;
-
+      console.log(current(board));
       const columnsTasks: Record<string, Task[]> = {};
 
       board.columns.forEach((column) => {
         columnsTasks[column.id] = column.tasks;
       });
 
+      // console.log({ columnsTasks });
+
       const newColumns: Column[] = payload.columns.map((column) => ({
         id: column.columnId ?? nanoid(),
         name: column.columnName,
         tasks: column.columnId ? columnsTasks[column.columnId] || [] : [],
       }));
+
+      // console.log({ newColumns });
 
       board.name = payload.name;
       board.columns = newColumns;
@@ -101,6 +107,11 @@ export const boardsReducer = createSlice({
       };
 
       column.tasks.push(task);
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
     },
     completeSubtask: (state, { payload }: PayloadAction<string>) => {
       if (!state.activeTask || !state.activeBoard) return;
@@ -119,6 +130,11 @@ export const boardsReducer = createSlice({
       activeTaskColumn.tasks.forEach((task) => {
         if (task.id !== state.activeTask?.id) return;
         task.subtasks = state.activeTask.subtasks;
+      });
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
       });
     },
     changeTaskStatus: (state, { payload }: PayloadAction<string>) => {
@@ -140,6 +156,11 @@ export const boardsReducer = createSlice({
 
       columnSelected.tasks.push(state.activeTask);
       state.activeTask.status = columnSelected.id;
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
     },
   },
 });

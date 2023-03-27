@@ -16,6 +16,8 @@ import { BaseModal } from "../base-modal/BaseModal";
 import { SubtasksList } from "./SubtasksList";
 import { Form } from "../form/Form";
 import { StatusValues } from "../new-task-form/StatusValues";
+import { TaskMenuOptions } from "./TaskMenuOptions";
+import { MyInput } from "../my-input/MyInput";
 
 interface FormProps {
   columnId: string;
@@ -26,12 +28,13 @@ export const TaskDetails = () => {
   const status = useSelector(selectActiveBoardColumns);
 
   const dispatch = useAppDispatch();
-  const methods = useForm<FormProps>();
+  const methods = useForm<FormProps>({});
 
   const columnId = methods.watch("columnId");
 
   const closeModal = () => {
     dispatch(setActiveTask(null));
+    methods.reset();
   };
 
   useEffect(() => {
@@ -53,9 +56,7 @@ export const TaskDetails = () => {
         >
           {activeTask?.title}
         </Typography>
-        <IconButton sx={{ color: "customGrey.main" }}>
-          <MoreVert />
-        </IconButton>
+        <TaskMenuOptions />
       </Stack>
       <Typography
         variant="body2"
