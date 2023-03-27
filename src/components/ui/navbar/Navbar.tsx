@@ -5,7 +5,10 @@ import { useSelector } from "react-redux";
 import { LogoDark, LogoLight, LogoMobile } from "../../../assets";
 import { useThemeContext } from "../../../config/theme/ThemeContext";
 import { selectActiveBoard } from "../../../redux/reducers/boards/boards.selector";
-import { setIsOptionsModalOpen } from "../../../redux/reducers/ui/ui.reducer";
+import {
+  setIsOptionsModalOpen,
+  setShowNewTaskModal,
+} from "../../../redux/reducers/ui/ui.reducer";
 import {
   selectIsOptionsModalOpen,
   selectShowSidebar,
@@ -45,6 +48,10 @@ export const Navbar = () => {
   const disableNewTaskButton = () => {
     if (!activeBoard) return true;
     return activeBoard.columns.length === 0;
+  };
+
+  const openNewTaskModal = () => {
+    dispatch(setShowNewTaskModal(true));
   };
 
   useEffect(() => {
@@ -88,6 +95,7 @@ export const Navbar = () => {
             <Button
               size="small"
               variant="contained"
+              onClick={openNewTaskModal}
               disabled={disableNewTaskButton()}
             >
               <Add />

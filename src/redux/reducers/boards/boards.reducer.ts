@@ -5,15 +5,21 @@ import {
   Column,
   Task,
 } from "../../../config/interfaces/board.interface";
-import { CreateBoardBody, UpdateBoardBody } from "./request.interfaces";
+import {
+  CreateBoardBody,
+  CreateTaskBody,
+  UpdateBoardBody,
+} from "./request.interfaces";
 
 interface InitialState {
   boards: Board[];
   activeBoard: Board | null;
+  activeTask: Task | null;
 }
 
 const initialState: InitialState = {
   boards: data,
+  activeTask: null,
   activeBoard: null,
 };
 
@@ -23,6 +29,9 @@ export const boardsReducer = createSlice({
   reducers: {
     setActiveBoard: (state, action: PayloadAction<Board | null>) => {
       state.activeBoard = action.payload;
+    },
+    setActiveTask: (state, action: PayloadAction<Task | null>) => {
+      state.activeTask = action.payload;
     },
     addNewBoard: (state, { payload }: PayloadAction<CreateBoardBody>) => {
       const columns: Board["columns"] = payload.columns.map((column) => ({
@@ -68,8 +77,80 @@ export const boardsReducer = createSlice({
       board.columns = newColumns;
       state.activeBoard = board;
     },
+    addNewTask: (state, { payload }: PayloadAction<CreateTaskBody>) => {
+      if (!state.activeBoard) return;
+
+      const column = state.activeBoard.columns.find(
+        (columnItem) => columnItem.id === payload.columnId
+      );
+
+      if (!column) return;
+
+      const subtasks: Task["subtasks"] = payload.subtasks.map((subtask) => ({
+        id: nanoid(),
+        title: subtask,
+        isCompleted: false,
+      }));
+
+      const task: Task = {
+        subtasks,
+        id: nanoid(),
+        status: column.id,
+        title: payload.title,
+        description: payload.description || "",
+      };
+
+      column.tasks.push(task);
+    },
+    completeSubtask: (state, { payload }: PayloadAction<string>) => {
+      if (!state.activeTask || !state.activeBoard) return;
+
+      const activeTaskColumn = state.activeBoard.columns.find(
+        (column) => column.id === state.activeTask?.status
+      );
+
+      const subtask = state.activeTask.subtasks.find(
+        (subtaskItem) => subtaskItem.id === payload
+      );
+
+      if (!subtask || !activeTaskColumn) return;
+
+      subtask.isCompleted = !subtask.isCompleted;
+      activeTaskColumn.tasks.forEach((task) => {
+        if (task.id !== state.activeTask?.id) return;
+        task.subtasks = state.activeTask.subtasks;
+      });
+    },
+    changeTaskStatus: (state, { payload }: PayloadAction<string>) => {
+      if (!state.activeTask || !state.activeBoard) return;
+
+      const columnSelected = state.activeBoard.columns.find(
+        (column) => column.id === payload
+      );
+
+      const columnActiveTask = state.activeBoard.columns.find(
+        (column) => column.id === state.activeTask?.status
+      );
+
+      if (!columnSelected || !columnActiveTask) return;
+
+      columnActiveTask.tasks = columnActiveTask.tasks.filter(
+        (task) => task.id !== state.activeTask?.id
+      );
+
+      columnSelected.tasks.push(state.activeTask);
+      state.activeTask.status = columnSelected.id;
+    },
   },
 });
 
-export const { setActiveBoard, addNewBoard, deleteBoard, updateBoard } =
-  boardsReducer.actions;
+export const {
+  addNewTask,
+  addNewBoard,
+  deleteBoard,
+  updateBoard,
+  setActiveTask,
+  setActiveBoard,
+  completeSubtask,
+  changeTaskStatus,
+} = boardsReducer.actions;

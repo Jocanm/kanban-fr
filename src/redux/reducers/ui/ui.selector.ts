@@ -10,3 +10,6 @@ export const selectIsNewBoardModalEditMode = (state: RootState) =>
   state.ui.isNewBoardModalEditMode;
 
 export const selectShowSidebar = (state: RootState) => state.ui.showSidebar;
+
+export const selectShowNewTaskModal = (state: RootState) =>
+  state.ui.showNewTaskModal;

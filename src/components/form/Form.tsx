@@ -11,7 +11,7 @@ interface Props {
 export const Form = ({ methods, className, onSubmit, children }: Props) => {
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit} className={className}>
+      <form onSubmit={onSubmit} className={`base-form ${className}`}>
         {children}
       </form>
     </FormProvider>

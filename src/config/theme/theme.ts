@@ -174,6 +174,12 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
                 borderColor: `${theme.palette.customGrey.main}80`,
               },
             },
+            // Multiline
+            "& .MuiInputBase-root": {
+              "&.MuiInputBase-multiline": {
+                padding: ".5rem",
+              },
+            },
           }),
         },
         defaultProps: {
@@ -194,6 +200,27 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
           },
         },
       },
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            padding: "0",
+            color: mode === "light" ? "#40455250" : "#404552",
+            zIndex: 1,
+            "&::after": {
+              content: '""',
+              height: 15,
+              width: 15,
+              zIndex: -1,
+              position: "absolute",
+            },
+            "&.Mui-checked": {
+              "&::after": {
+                backgroundColor: "white",
+              },
+            },
+          },
+        },
+      },
     },
     typography: {
       fontFamily: ["Plus Jakarta Sans", "sans-serif"].join(","),
@@ -202,6 +229,9 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
       },
       subtitle2: {
         color: mode === "dark" ? "#fff" : "#828FA3",
+      },
+      body2: {
+        fontWeight: 500,
       },
     },
     spacing: (factor: number) => `${0.25 * factor}rem`,

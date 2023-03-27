@@ -11,3 +11,10 @@ export interface UpdateBoardBody {
     columnName: string;
   }[];
 }
+
+export interface CreateTaskBody {
+  title: string;
+  columnId: string;
+  subtasks: string[];
+  description?: string;
+}

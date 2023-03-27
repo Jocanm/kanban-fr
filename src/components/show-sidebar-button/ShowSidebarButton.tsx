@@ -31,7 +31,7 @@ export const ShowSidebarButton = ({ showSidebar }: Props) => {
             width: "2.875rem",
             height: "3rem",
             borderRadius: "0 6.25rem 6.25rem 0",
-            display: { xs: "none", md: "block" },
+            display: { xs: "none", md: "flex" },
           }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
