@@ -14,7 +14,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <SidebarContainer>
+    <SidebarContainer overflow="visible">
       <BoardsList />
       <Stack spacing={4}>
         <Box pl={4}>

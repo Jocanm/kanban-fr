@@ -30,7 +30,7 @@ export const BoardsList = () => {
   };
 
   return (
-    <Stack spacing={5}>
+    <Stack spacing={5} maxHeight="60%">
       <Typography
         pl={6}
         fontSize="14px"
@@ -40,7 +40,7 @@ export const BoardsList = () => {
       >
         ALL BOARDS ({boards.length})
       </Typography>
-      <Stack spacing={1}>
+      <Stack spacing={1} height="100%">
         {boards.map((board) => (
           <BoardItem
             key={board.id}
