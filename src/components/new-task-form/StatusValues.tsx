@@ -1,5 +1,4 @@
-import { MenuItem, Box } from "@mui/material";
-import { KeyboardArrowDown } from "@mui/icons-material";
+import { Box, MenuItem } from "@mui/material";
 import { getColorByIndex } from "../../helpers/getColumnColor";
 import { MyInput } from "../my-input/MyInput";
 
@@ -15,20 +14,7 @@ export const StatusValues = ({
   defaultValue = status.length === 1 ? status[0].key : undefined,
 }: Props) => {
   return (
-    <MyInput
-      select
-      name={name}
-      customLabel="Status"
-      defaultValue={defaultValue}
-      SelectProps={{
-        IconComponent: KeyboardArrowDown,
-        sx: {
-          "& .MuiSelect-icon": {
-            color: "primary.main",
-          },
-        },
-      }}
-    >
+    <MyInput select name={name} customLabel="Status" value={defaultValue}>
       {status.map((item, index) => (
         <MenuItem
           key={item.key}

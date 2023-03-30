@@ -8,6 +8,7 @@ export interface Column {
   name: string;
   id: string;
   tasks: Task[];
+  color: string;
 }
 
 export interface Task {

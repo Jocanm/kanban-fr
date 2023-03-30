@@ -5,6 +5,7 @@ import {
   Column,
   Task,
 } from "../../../config/interfaces/board.interface";
+import { getColorByIndex } from "../../../helpers/getColumnColor";
 import {
   CreateBoardBody,
   CreateTaskBody,
@@ -35,11 +36,14 @@ export const boardsReducer = createSlice({
       state.activeTask = action.payload;
     },
     addNewBoard: (state, { payload }: PayloadAction<CreateBoardBody>) => {
-      const columns: Board["columns"] = payload.columns.map((column) => ({
-        tasks: [],
-        id: nanoid(),
-        name: column,
-      }));
+      const columns: Board["columns"] = payload.columns.map(
+        (column, index) => ({
+          tasks: [],
+          id: nanoid(),
+          name: column,
+          color: getColorByIndex(index),
+        })
+      );
 
       const board: Board = {
         columns,
@@ -69,10 +73,11 @@ export const boardsReducer = createSlice({
         columnsTasks[column.id] = column.tasks;
       });
 
-      const newColumns: Column[] = payload.columns.map((column) => ({
+      const newColumns: Column[] = payload.columns.map((column, index) => ({
         id: column.columnId ?? nanoid(),
         name: column.columnName,
         tasks: column.columnId ? columnsTasks[column.columnId] || [] : [],
+        color: getColorByIndex(index),
       }));
 
       board.name = payload.name;
@@ -203,6 +208,33 @@ export const boardsReducer = createSlice({
         board.columns = state.activeBoard.columns;
       });
     },
+    setColumnsOder: (state, { payload }: PayloadAction<Column[]>) => {
+      if (!state.activeBoard) return;
+
+      state.activeBoard.columns = payload;
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
+    },
+    setTasksOrder: (state, { payload }: PayloadAction<Task[]>) => {
+      if (!state.activeBoard || !state.activeBoard) return;
+      const columnId = payload[0]?.status;
+
+      const column = state.activeBoard.columns.find(
+        (columnItem) => columnItem.id === columnId
+      );
+
+      if (!column) return;
+
+      column.tasks = payload;
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
+    },
   },
 });
 
@@ -213,7 +245,9 @@ export const {
   addNewBoard,
   deleteBoard,
   updateBoard,
+  setTasksOrder,
   setActiveTask,
+  setColumnsOder,
   setActiveBoard,
   completeSubtask,
   changeTaskStatus,

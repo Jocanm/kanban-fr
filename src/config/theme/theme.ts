@@ -1,5 +1,6 @@
 import { PaletteMode } from "@mui/material";
 import { ThemeOptions, darken } from "@mui/material/styles";
+import { KeyboardArrowDown } from "@mui/icons-material";
 import { CustomScrollBarObject } from "../../shared/css/css.global";
 
 declare module "@mui/material/styles" {
@@ -198,6 +199,16 @@ export const themeSettings = (mode: PaletteMode): ThemeOptions => {
             vertical: "bottom",
             horizontal: "center",
           },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          icon: ({ theme }) => ({
+            color: theme.palette.primary.main,
+          }),
+        },
+        defaultProps: {
+          IconComponent: KeyboardArrowDown,
         },
       },
       MuiCheckbox: {

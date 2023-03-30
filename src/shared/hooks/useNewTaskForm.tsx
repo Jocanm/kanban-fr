@@ -43,7 +43,7 @@ export const useNewTaskForm = ({ activeTask }: Props) => {
 
   const methods = useForm<NewTaskFormSchema>({
     resolver: yupResolver(formSchema),
-    values: {
+    defaultValues: {
       subtasks: activeTask
         ? activeTask.subtasks.map((item) => ({
             id: item.id,
@@ -51,7 +51,7 @@ export const useNewTaskForm = ({ activeTask }: Props) => {
             isCompleted: item.isCompleted,
           }))
         : [],
-      columnId: activeTask ? activeTask.status : "",
+      columnId: activeTask ? activeTask.status : undefined,
       title: activeTask ? activeTask.title : "",
       description: activeTask ? activeTask.description : "",
     },
