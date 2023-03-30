@@ -1,10 +1,12 @@
-import { createSlice, nanoid, PayloadAction, current } from "@reduxjs/toolkit";
+// import { current } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { data } from "../../../config/data/data";
 import {
   Board,
   Column,
   Task,
 } from "../../../config/interfaces/board.interface";
+import { arrayInsert } from "../../../helpers/arrayInsert";
 import { getColorByIndex } from "../../../helpers/getColumnColor";
 import {
   CreateBoardBody,
@@ -235,6 +237,48 @@ export const boardsReducer = createSlice({
         board.columns = state.activeBoard.columns;
       });
     },
+    setTaskStatusWithDrag: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        taskId: string;
+        oldColumnId: string;
+        newColumnId: string;
+        newPosition: number;
+      }>
+    ) => {
+      if (!state.activeBoard) return;
+
+      const oldColumn = state.activeBoard.columns.find(
+        (columnItem) => columnItem.id === payload.oldColumnId
+      );
+
+      const newColumn = state.activeBoard.columns.find(
+        (columnItem) => columnItem.id === payload.newColumnId
+      );
+
+      if (!oldColumn || !newColumn) return;
+
+      const task = oldColumn.tasks.find(
+        (taskItem) => taskItem.id === payload.taskId
+      );
+
+      if (!task) return;
+
+      task.status = newColumn.id;
+
+      oldColumn.tasks = oldColumn.tasks.filter(
+        (taskItem) => taskItem.id !== payload.taskId
+      );
+
+      newColumn.tasks = arrayInsert(newColumn.tasks, task, payload.newPosition);
+
+      state.boards.forEach((board) => {
+        if (board.id !== state.activeBoard?.id) return;
+        board.columns = state.activeBoard.columns;
+      });
+    },
   },
 });
 
@@ -251,4 +295,5 @@ export const {
   setActiveBoard,
   completeSubtask,
   changeTaskStatus,
+  setTaskStatusWithDrag,
 } = boardsReducer.actions;

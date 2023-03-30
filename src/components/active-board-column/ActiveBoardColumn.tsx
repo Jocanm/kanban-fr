@@ -41,7 +41,11 @@ export const ActiveBoardColumn = ({ column, index }: Props) => {
                 <For
                   each={column.tasks}
                   render={(task, taskIndex) => (
-                    <ColumnTaskItem task={task} index={taskIndex} />
+                    <ColumnTaskItem
+                      task={task}
+                      key={task.id}
+                      index={taskIndex}
+                    />
                   )}
                 />
                 {dropProvided.placeholder}

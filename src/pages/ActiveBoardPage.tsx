@@ -19,6 +19,7 @@ import { arrayMove } from "../helpers/arrayMove";
 import {
   setColumnsOder,
   setTasksOrder,
+  setTaskStatusWithDrag,
 } from "../redux/reducers/boards/boards.reducer";
 import {
   setIsNewBoardModalEditMode,
@@ -71,7 +72,7 @@ export const ActiveBoardPage = () => {
     dispatch(setColumnsOder(newColumns));
   };
 
-  const onDragTask = ({ destination, source }: DropResult) => {
+  const onDragTask = ({ destination, source, draggableId }: DropResult) => {
     if (!destination || !activeBoard) return;
     if (
       destination.index === source.index &&
@@ -89,6 +90,15 @@ export const ActiveBoardPage = () => {
 
       const newTasks = arrayMove(column.tasks, source.index, destination.index);
       dispatch(setTasksOrder(newTasks));
+    } else {
+      dispatch(
+        setTaskStatusWithDrag({
+          taskId: draggableId,
+          newPosition: destination.index,
+          oldColumnId: source.droppableId,
+          newColumnId: destination.droppableId,
+        })
+      );
     }
   };
 
