@@ -15,10 +15,10 @@ export const data: Board[] = [
         id: pendingId,
         name: "Pending",
         color: getColorByIndex(0),
-        tasks: Array.from({ length: 3 }, (_, i) => ({
+        tasks: Array.from({ length: 2 }, (_, i) => ({
           title: `Task pending ${i + 1}`,
           id: nanoid(),
-          description: "Task title",
+          description: "Task description",
           status: pendingId,
           subtasks: [],
         })),
@@ -27,10 +27,10 @@ export const data: Board[] = [
         id: inProgressId,
         name: "In Progress",
         color: getColorByIndex(1),
-        tasks: Array.from({ length: 6 }, (_, i) => ({
+        tasks: Array.from({ length: 3 }, (_, i) => ({
           title: `Task in progress ${i + 1}`,
           id: nanoid(),
-          description: "Task title",
+          description: "Task description",
           status: inProgressId,
           subtasks: [],
         })),
@@ -39,10 +39,10 @@ export const data: Board[] = [
         id: completedId,
         name: "Completed",
         color: getColorByIndex(2),
-        tasks: Array.from({ length: 8 }, (_, i) => ({
+        tasks: Array.from({ length: 4 }, (_, i) => ({
           title: `Task completed ${i + 1}`,
           id: nanoid(),
-          description: "Task title",
+          description: "Task description",
           status: completedId,
           subtasks: [],
         })),
